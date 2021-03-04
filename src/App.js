@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CardItem from "./components/CardItem";
 import { pokemons } from "./mock/mockedData";
 
@@ -8,14 +8,16 @@ export default function App() {
   /**
    * Input state management logic here
    */
-  const [query, updateQuery] = useState("");
 
-  const showPokemons =
-    query === ""
-      ? pokemons
-      : pokemons.filter((pokemon) =>
-          pokemon.name.toLowerCase().includes(query.toLowerCase())
-        );
+  this.setState = {
+    query: ""
+  };
+
+  function updateQuery(query) {
+    setState(() => ({
+      query: query.trim()
+    }));
+  }
 
   return (
     <div className="app">
@@ -28,17 +30,10 @@ export default function App() {
         placeholder="Input your query"
         onChange={(event) => updateQuery(event.target.value)}
       ></input>
-      <p>{query}</p>
       <div className="cards">
         {/**
         Filter pokemons data and map them to return an array of CardItems.
          */}
-
-        {showPokemons.map((pokemon) => (
-          <li key={pokemon.name} className="pokemon-list-item">
-            <CardItem name={pokemon.name} sprite={pokemon.sprite} />
-          </li>
-        ))}
       </div>
     </div>
   );
